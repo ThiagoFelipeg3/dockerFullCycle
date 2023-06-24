@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  node:
+    build:
+      context: ./node
+    image: thiagofelipeg3/node
+    container_name: nodeapp
+    networks:
+      - nodenginxnet
+    ports:
+      - "3001:3001"
+
+  nginx:
+    build:
+      context: ./nginx
+    image: thiagofelipeg3/nginx
+    container_name: nginxproxy
+    networks:
+      - nodenginxnet
+    ports:
+      - "8080:80"
+
+networks:
+  nodenginxnet:
+    driver: bridge
