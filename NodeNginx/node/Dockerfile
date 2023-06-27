@@ -4,9 +4,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN npm install && \
-    npm install express
-
+RUN npm install
 
 EXPOSE 3001
 
