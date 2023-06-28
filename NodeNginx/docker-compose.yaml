@@ -8,11 +8,11 @@ services:
     restart: always
     tty: true
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./database/mysql:/var/lib/mysql
+      - ./database/start:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
     networks:
       - nodenginxnet
 
@@ -23,10 +23,14 @@ services:
     container_name: nodeapp
     volumes:
       - ./node:/var/www/html
+      - /var/www/html/node_modules
     networks:
       - nodenginxnet
     ports:
       - "3001:3001"
+    depends_on:
+      - db
+
 
   nginx:
     build:
@@ -37,6 +41,8 @@ services:
       - nodenginxnet
     ports:
       - "8080:80"
+    depends_on:
+      - node
 
 networks:
   nodenginxnet:
