@@ -12,7 +12,20 @@ module.exports = function (config) {
     };
 
     this.insertPeople = () => {
-        const query = `INSERT INTO people(name) values('Thiago')`;
+        const names = [
+            'Miguel',
+            'Arthur',
+            'Gael',
+            'Théo',
+            'Heitor',
+            'Ravi',
+            'Davi',
+            'Bernardo',
+            'Noah',
+            'Gabriel',
+        ];
+
+        const query = `INSERT INTO people(name) VALUES('${names[Math.floor(Math.random() * names.length)]}')`;
         this.createConnection().query(query);
     };
 
