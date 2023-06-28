@@ -64,22 +64,7 @@ Suba tudo em um repositório e faça a entrega.
 
 ## Comandos
 
-> Siga os passos para criar a tabela people
-
-```
-docker exec -it db bash
-```
-
-root/root
-```
-mysql -uroot -p
-```
-
-```
-mysql> create table people(id int not null auto_increment, name varchar(255), primary key(id));
-```
-
-> Após criar as tabelas no banco execute o projeto
+> Para executar o projeto
 
 ```
 docker-compose  up -d
