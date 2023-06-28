@@ -1,5 +1,5 @@
 const express = require('express')
-const mysql = require('mysql')
+const MysqlHelp = require('./mysql-help.js');
 
 const app = express()
 const port = 3001
@@ -8,16 +8,15 @@ const config = {
     user: 'root',
     password: 'root',
     database: 'nodedb'
-}
+};
+
+const mysql = new MysqlHelp(config);
 
 app.get('/', (req, res) => {
-    const connection = mysql.createConnection(config)
-    const query = `INSERT INTO people(name) values('Thiago')`;
-    connection.query(query);
-
     let htmlList = '';
 
-    connection.query('SELECT * FROM people', (error, results, fields) => {
+    mysql.insertPeople();
+    mysql.getPeople((error, results) => {
         if (error) throw error;
 
         results.forEach(people => {
@@ -31,10 +30,9 @@ app.get('/', (req, res) => {
             </ol>
         `);
     });
-
-    connection.end();
 })
 
 app.listen(port, () => {
     console.log(`Rodando na porta ${port}`)
 })
+
