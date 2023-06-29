@@ -21,6 +21,8 @@ services:
       context: ./node
     image: thiagofelipeg3/node
     container_name: nodeapp
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+    command: node index.js
     volumes:
       - ./node:/var/www/html
       - /var/www/html/node_modules
